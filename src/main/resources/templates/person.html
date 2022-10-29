@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+  body {
+    background: #2B2B2B;
+    font-family: 'Segoe UI Semibold',serif;
+    color: #DCDFE1;
+  }
+  .center-items{
+    text-align: center;
+    vertical-align: middle;
+  }
+  select{
+    background: #3C3F41;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+  }
+  .formStyle{
+    margin: 35px auto;
+    border-radius: 5px;
+    padding: 4px 12px;
+    width: 750px;
+    background: #3C3F41;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .formItem{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #87939A;
+  }
+  .btn{
+    background-color: #538642;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    text-decoration: none;
+    color: #DCDFE1;
+    font-weight: 500;
+  }
+  .search{
+    width: 650px;
+    font-size: 24px;
+    font-weight: 500;
+    background-color: #45494A;
+    color: #87939A;
+    border-radius: 5px;
+    padding: 7px;
+    margin-top: 35px;
+    border-width: 0px;
+  }
+  .btnSearch{
+    font-size: 24px;
+    font-weight: 500;
+    background-color: #538642;
+    border-radius: 5px;
+    padding: 9px;
+    color: #DCDFE1;
+    border-width: 0px;
+  }
+</style>
+
+
+<body>
+<form class="formStyle" th:action="${'/person/add/'}" method="post">
+  <input class="search" type="text" name="name" placeholder="Введите имя человека"><select  name="passwordName">
+  <div class="formItem" th:each="element : ${password}">
+    <option  th:text="${element.passwordName}"></option>
+  </div>
+</select><select  name="postName">
+  <div class="formItem" th:each="element : ${post}">
+    <option th:text="${element.name}"></option>
+  </div>
+</select>
+  <button class="btn" type="submit">Добавить человека</button>
+</form>
+<form class="formStyle" th:action="${'/person/addJob/'}" method="post" >
+  <select class="formItem" name="nameN">
+    <div  th:each="element : ${person}">
+      <option th:text="${element.name}"></option>
+    </div>
+  </select>
+  <select class="formItem" name="jobName">
+    <div th:each="element : ${jobs}">
+      <option th:text="${element.name}"></option>
+    </div>
+  </select>
+  <button class="btn" type="submit">Добавить человека к месту работы</button>
+</form>
+<div class="center-items" th:each="el:${person}">
+  <p th:text="'Name: '+${el.name}"></p>
+  <p th:text="'Password:'+${el.getPassword().getPasswordName()}"></p>
+  <p th:text="'Post:'+${el.getPost().getName()}"></p>
+  <p th:text="'Salary:'+${el.getPost().getSalary()}"></p>
+  <div th:each="el1:${el.getJobs()}">
+    <p th:text="'Job: '+${el1.getName()}"></p>
+    <p th:text="'Address: '+${el1.getAddress()}"></p>
+  </div>
+  <br/>
+</div>
+</div>
+</body>
+</html>
